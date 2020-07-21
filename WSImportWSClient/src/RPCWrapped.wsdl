@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions targetNamespace="http://service.jaxws.com/" name="HelloWorldWrappedImplService">
+	<message name="getGreetingRequest">
+		<part name="name" type="xsd:string"/>
+	</message>
+	<message name="getGreetingRequestResponse">
+		<part name="GreetingResponse" type="xsd:string"/>
+	</message>
+	<portType name="MyJaxWSHello">
+		<operation name="getGreetingRequest">
+			<input ns1:Action="http://ashishtripathi.com/MyJaxWSHello/getGreetingRequestRequest" message="tns:getGreetingRequest"/>
+			<output ns2:Action="http://ashishtripathi.com/MyJaxWSHello/getGreetingRequestResponse" message="tns:getGreetingRequestResponse"/>
+		</operation>
+	</portType>
+	<binding name="HelloWorldWrappedImplPortBinding" type="ns1:MyJaxWSHello">
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc"/>
+		<operation name="getGreetingRequest">
+			<soap:operation soapAction=""/>
+			<input>
+				<soap:body use="literal" namespace="http://ashishtripathi.com"/>
+			</input>
+			<output>
+				<soap:body use="literal" namespace="http://ashishtripathi.com"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="HelloWorldWrappedImplService">
+		<port name="HelloWorldWrappedImplPort" binding="tns:HelloWorldWrappedImplPortBinding">
+			<soap:address location="http://localhost:9999/ws/wrapped/hello"/>
+		</port>
+	</service>
+</definitions>
